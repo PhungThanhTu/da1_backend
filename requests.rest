@@ -1,0 +1,2 @@
+// Testing basic
+GET http://localhost:5050/users
