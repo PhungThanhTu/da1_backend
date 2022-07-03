@@ -41,6 +41,10 @@ app.use('/user',userRouter);
 app.use('/category',categoryRouter);
 app.use('/post',postRouter);
 
+app.use('/', function(req,res,next){
+  res.render('index');
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
