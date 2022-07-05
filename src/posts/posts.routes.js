@@ -42,7 +42,8 @@ router.post('/', isAuth, async (req,res) => {
         const availableCategories = await getCategories();
         req.body.categories.forEach(category => {
             if(!availableCategories.includes(category)){
-                await newCategory(category);
+                const newCat = await newCategory(category);
+                console.log(newCat);
             }
             
         });
