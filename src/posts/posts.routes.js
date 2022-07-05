@@ -1,5 +1,6 @@
 const express = require('express');
 const model = require('./posts.model')
+const {getCategories,newCategory} = require('../categories/categories.model')
 
 const router = express.Router();
 
@@ -36,7 +37,15 @@ router.get('/myPosts',isAuth,async (req,res) => {
 })
 
 router.post('/', isAuth, async (req,res) => {
+
     try {
+        const availableCategories = await getCategories();
+        req.body.categories.forEach(category => {
+            if(!availableCategories.includes(category)){
+                await newCategory(category);
+            }
+            
+        });
         await model.createPost(req.body.post,req.user.username,req.body.categories);
         res.status(201).send({
             message:"Successfully Posted"
